@@ -46,20 +46,3 @@ class Graph():
         if(lable_start and lable_end in self.vertices_dict):
             self.vertices_dict[lable_start].add_neighbour(self.vertices_dict[lable_end])
             #self.vertices_dict[lable_end].add_neighbour(self.vertices_dict[lable_start])
-
-if __name__ == "__main__":
-
-    g = Graph()
-
-    g.add_vertex("test1")
-    g.add_vertex("test2")
-    g.add_vertex("test3")
-
-    g.add_edge("test2","test3")
-    g.add_edge("test1","test2")
-
-
-    for v in g:
-        print("lable:"+v.lable)
-        for c in v.get_children():
-            print("parent:",v.get_lable(),"child:",c.get_lable())
