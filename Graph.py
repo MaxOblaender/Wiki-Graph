@@ -4,18 +4,18 @@ class Vertex():
     def __init__(self, lable):
         """Konstruktor setzt den Seitennamen als label"""
         self.lable = lable
-        self.adjacent = set()
+        self.children = set()
 
     def add_neighbour(self,neighbour):
         """Fühgt eine Kante zu einem gegebenen Vertex hinzu"""
-        self.adjacent.add(neighbour)
+        self.children.add(neighbour)
 
     def get_lable(self):
         return self.lable
 
-    def get_connections(self):
+    def get_children(self):
         """Gibt alle verbundenen Vertices von diesem Vertex zurück"""
-        return self.adjacent
+        return self.children
 
 class Graph():
     """Klasse die den Graphen darstellt"""
@@ -61,5 +61,5 @@ if __name__ == "__main__":
 
     for v in g:
         print("lable:"+v.lable)
-        for c in v.get_connections():
-            print("adjacent:",c.get_lable(),v.get_lable())
+        for c in v.get_children():
+            print("parent:",v.get_lable(),"child:",c.get_lable())
