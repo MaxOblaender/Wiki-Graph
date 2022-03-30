@@ -1,4 +1,7 @@
 
+from numpy import empty
+
+
 class Vertex():
     """Klasse um die Vertices des Graphen darzustellen"""
 
@@ -99,10 +102,16 @@ class Graph():
         return E/(V*(V-1))
 
     def __str__(self): #nicht wirklich richtig
-        output = []
-        for vertex in self.vertices_dict.items(): 
-            output.append(vertex.get_label())
-            output.append("\n")
-            for child in vertex.get_children():
-                output.append(child.get_label())
+        output = ""
+        counter = 0
+
+        for label in self.vertices_dict: 
+            if self.vertices_dict[label].get_children():
+                output = output + label
+                counter +=1
+                output = output + "\n"
+            for child in self.vertices_dict[label].get_children():
+                output = output + "\t" + child.get_label() + " \n"
+                counter +=1
         return str(output)
+
