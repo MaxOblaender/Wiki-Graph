@@ -56,7 +56,8 @@ def main():
     )
     args = parser.parse_args()   
 
-    q = Query(args.link,args.k,args.d) #startet auch schon direkt die Suche
+    q = Query(args.k,args.d) 
+    q.run(args.link)
 
     if args.picture:
         q.draw(q.g,"spring",args.show)
