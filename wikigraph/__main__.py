@@ -1,8 +1,8 @@
 import sys
 import argparse
-from wikigraph.graphClass import Graph
-from wikigraph.queryClass import Query
-from wikigraph.drawClass import Draw
+from graphClass import Graph
+from queryClass import Query
+from drawClass import Draw
 
 def main():
     """Cli mittels argparse"""
