@@ -166,7 +166,7 @@ if __name__ == "__main__":
     url = "https://en.wikipedia.org/wiki/Chris_Alp"
     # url = "https://en.wikipedia.org/wiki/Tacoma_Narrows_Bridge"
 
-    q = Query(url,g,50,8)
+    q = Query(url,g,200,8)
     
     print(g)
 
