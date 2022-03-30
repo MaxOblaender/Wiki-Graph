@@ -1,4 +1,4 @@
-from .graphClass import Graph
+from graphClass import Graph
 import networkx as nx
 import matplotlib.pyplot as plt
 import re
@@ -31,9 +31,12 @@ class Draw():
             pos = nx.spiral_layout(self.nx_graph)
         elif form == "planar":
             pos = nx.planar_layout(self.nx_graph)
-        
-        color_map = ["red" if re.search(request, node, re.IGNORECASE) else "mediumslateblue" for node in self.nx_graph] 
+        if request != "":
+            color_map = ["red" if re.search(request, node, re.IGNORECASE) else "mediumslateblue" for node in self.nx_graph] 
         # wenn der gesuchte string in einem Knoten gefunden wir, wird dieser roo, statt blau
+        else:
+            color_map = ["mediumslateblue" for node in self.nx_graph]
+            
         nx.draw(self.nx_graph,pos,width=2,edge_color='grey',node_color=color_map,edge_cmap=plt.cm.Blues,with_labels=True)
 
         plt.show()
