@@ -1,18 +1,18 @@
 import sys
 import argparse
-from .graphClass import Graph
-from .queryClass import Query
-from .drawClass import Draw
+from wikigraph.graphClass import Graph
+from wikigraph.queryClass import Query
+from wikigraph.drawClass import Draw
 
 def main():
     """Cli mittels argparse"""
-    parser = argparse.ArgumentParser(description="Wikigraph")
+    parser = argparse.ArgumentParser(prog="graph",description="displays wikipeadia pages")
 
     parser.add_argument( #für den link
         "link",
         # default="https://en.wikipedia.org/wiki/Tacoma_Narrows_Bridge",
         type=str, 
-        help="enter a wikipedia link to search in"
+        help="enter a wikipedia link to search in. Worky only on english wikipedia sites"
     )
     parser.add_argument(
         "-k",
@@ -57,7 +57,7 @@ def main():
     args = parser.parse_args()   
 
     q = Query(args.link,args.k,args.d) #startet auch schon direkt die Suche
-    
+
     if args.picture:
         q.draw(q.g,"spring",args.show)
     elif args.picturespiral:
