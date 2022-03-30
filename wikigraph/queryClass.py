@@ -1,5 +1,5 @@
-from .graphClass import Graph
-from .drawClass import Draw
+from graphClass import Graph
+from drawClass import Draw
 import requests
 import re
 
@@ -48,7 +48,7 @@ class Query():
         labelroot = self.find_titel(url) #findet titel der ersten Seite
         self.g.add_vertex(labelroot) #fügt Wurzel in Graphen g
         self.queue.append(labelroot) #fügt Wurzel in die queue
-        amount = amount +1 #K
+        amount = amount + 1 #K
         self.queue.append("$") #fügt (besonderes) Element in die queue, welches aufzeigt, wenn nächste Tiefe erreicht wird
 
         while depth < self.max_depth and amount < self.max_amount:
@@ -69,7 +69,7 @@ class Query():
             
             self.queue.pop(0) #Link an erster Stelle der queue wurde abgearbeitet
 
-        print("finished with K= ",amount," and D=",depth)
+        print("finished with K =",amount,"and D =",depth,"\n")
 
     def draw(self,graph,form,show):
         """Methode für die darstellung des Graphen. Benutzt die Klasse Draw"""
