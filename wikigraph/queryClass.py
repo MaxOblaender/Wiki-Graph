@@ -1,16 +1,15 @@
-import queue
-import graphClass
+from .graphClass import Graph
+from .drawClass import Draw
 import requests
 import re
-import drawClass
 
 class Query():
-    """Klasse zum holen und verarbeiten der HTML-Seiten. Hat einen Graphen als (Klassenattribut)"""
-    g = graphClass.Graph
+    """Klasse zum holen und verarbeiten der HTML-Seiten"""
+    g = Graph()
 
-    def __init__(self,url,graph,max_amount=500,max_depth=10):
+    def __init__(self,url,max_amount,max_depth):
         """setzt den Graphen"""
-        self.g = graph
+        self.g = Graph()
         self.queue = [] # die liste wird als quasi queue verwendet um die Tiefe richtig zu zählen
         self.max_amount = max_amount #max anzahl an Seiten
         self.max_depth = max_depth  #max anzahl an Tiefe
@@ -47,7 +46,7 @@ class Query():
     def run(self,url,depth,amount):
         """Hauptmethode für die Iteration"""
         labelroot = self.find_titel(url) #findet titel der ersten Seite
-        g.add_vertex(labelroot) #fügt Wurzel in Graphen g
+        self.g.add_vertex(labelroot) #fügt Wurzel in Graphen g
         self.queue.append(labelroot) #fügt Wurzel in die queue
         amount = amount +1 #K
         self.queue.append("$") #fügt (besonderes) Element in die queue, welches aufzeigt, wenn nächste Tiefe erreicht wird
@@ -66,20 +65,20 @@ class Query():
                 if amount < self.max_amount:
                     self.queue.append(link) #fügt gefundenen Link in die queue ein
                     titel = self.find_titel("https://en.wikipedia.org/wiki/"+link) 
-                    g.add_vertex(titel)
-                    g.add_edge(self.find_titel(self.queue[0]),titel) #fügt Kante von dem ersten element der Queue (Elter der aktuellen Seite) zur aktuellen Seite hinzu
+                    self.g.add_vertex(titel)
+                    self.g.add_edge(self.find_titel(self.queue[0]),titel) #fügt Kante von dem ersten element der Queue (Elter der aktuellen Seite) zur aktuellen Seite hinzu
                     amount = amount + 1
             
             self.queue.pop(0) #Link an erster Stelle der queue wurde abgearbeitet
             print("----------------------pop-----------------")
 
         print("finished with: ",amount," ",depth)
-        self.draw(self.g)
+        # self.draw(self.g)
 
-    def draw(self,graph):
+    def draw(self,graph,form,show):
         """Methode für die darstellung des Graphen. Benutzt die Klasse Draw"""
-        draw_class = drawClass.Draw(graph)
-        draw_class.draw()
+        draw_class = Draw(graph,form,show)
+        
 
         # g.add_vertex(self.label)            #fügt den aktuellen Titel als Knoten in den Bau        
 
@@ -144,9 +143,9 @@ class Query():
             
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
-    g = graphClass.Graph()
+#     g = graphClass.Graph()
 
     # g.add_vertex("test1")
     # g.add_vertex("test2")
@@ -163,12 +162,12 @@ if __name__ == "__main__":
     # url ="https://en.wikipedia.org/wiki/Newick_format"
     # url = "https://en.wikipedia.org/wiki/Germany"
     # url = "https://en.wikipedia.org/wiki/Pierre-Jules_Cavelier"
-    url = "https://en.wikipedia.org/wiki/Chris_Alp"
+    # url = "https://en.wikipedia.org/wiki/Chris_Alp"
     # url = "https://en.wikipedia.org/wiki/Tacoma_Narrows_Bridge"
 
-    q = Query(url,g,200,8)
+    # q = Query(url,g,500,8)
     
-    print(g)
+    # print(g)
 
     # print()
     # for v in g:

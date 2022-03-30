@@ -1,7 +1,4 @@
 
-from numpy import empty
-
-
 class Vertex():
     """Klasse um die Vertices des Graphen darzustellen"""
 
@@ -10,9 +7,6 @@ class Vertex():
         self.label = label
         self.children = set() #gerichtet ist hier immer von sich selbst zu adjacent
         self.parents = set()
-
-    #def __str__(self):
-     #   return str(self.label) + "adjacent:" + str([v.label for v in self.adjacent])
 
     def add_child(self,child): #fügt Kante von sich selbst zum Nachbarn hin hinzu
         """Fühgt eine Kante zu einem gegebenen Vertex hinzu"""
@@ -24,8 +18,7 @@ class Vertex():
     def get_children(self):
         return self.children
 
-    def get_parents(self):
-        """Gibt alle verbundenen Vertices von diesem Vertex zurück"""
+    def get_parents(self):        
         return self.parents
 
     def get_label(self):
@@ -35,7 +28,7 @@ class Graph():
     """Klasse die den Graphen darstellt"""
 
     def __init__(self):
-        """Konstruktor. Vertices werden in einem Dictionary gespeichert"""
+        """Konstruktor. Vertices werden in einem Dictionary gespeichert, mit dem Seitennamen als Key und dem Knoten Objekt als Value"""
         self.vertices_dict = {}
         self.num_vertices = 0
         self.num_edges = 0
@@ -45,13 +38,10 @@ class Graph():
 
     def add_vertex(self,label):
         """Fügt neuen Vertex ein. Setzt keine Kanten"""
-        if not label in self.vertices_dict:
+        if not (label in self.vertices_dict): # Prüft ob die Seite bereits gefunden wurde
             self.num_vertices = self.num_vertices +1
             new_vertex = Vertex(label) #muss prüfen, ob es schon einen Vertex mit dem Label gibt (macht das ein dict schon? ja ne?)
             self.vertices_dict[label] = new_vertex
-            print(label)
-        else:
-            print(label," was already found!")
 
     def get_vertex(self,label):
         """Holt den Vertix mit dem gesuchten Seitennamen aus dem Dictionary"""
@@ -101,7 +91,7 @@ class Graph():
         V = self.num_vertices
         return E/(V*(V-1))
 
-    def __str__(self): #nicht wirklich richtig
+    def __str__(self):
         output = ""
         counter = 0
 
