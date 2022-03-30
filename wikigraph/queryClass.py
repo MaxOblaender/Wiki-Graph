@@ -7,13 +7,13 @@ class Query():
     """Klasse zum Abfragen und Verarbeiten der HTML-Seiten"""
     g = Graph()
 
-    def __init__(self,url,max_amount,max_depth):
+    def __init__(self,max_amount,max_depth):
         """setzt den Graphen und startet die Suche"""
         self.g = Graph()
         self.queue = [] # die liste wird als quasi queue verwendet um die Tiefe richtig zu zählen
         self.max_amount = max_amount #max anzahl an Seiten
         self.max_depth = max_depth  #max anzahl an Tiefe
-        self.run(url,0,0)
+        
 
     def find_titel(self,url):
         """Setzt den titel(label) aus der HTML Seite"""
@@ -43,12 +43,13 @@ class Query():
                 proper_links.append(tmp)
         return proper_links  #Am Ende sind die "Links" nur noch die Label
 
-    def run(self,url,depth,amount):
+    def run(self,url,depth=0,amount=0):
         """Hauptmethode für die Iteration"""
         labelroot = self.find_titel(url) #findet titel der ersten Seite
         self.g.add_vertex(labelroot) #fügt Wurzel in Graphen g
         self.queue.append(labelroot) #fügt Wurzel in die queue
         amount = amount + 1 #K
+        depth = depth + 1 #D
         self.queue.append("$") #fügt (besonderes) Element in die queue, welches aufzeigt, wenn nächste Tiefe erreicht wird
 
         while depth < self.max_depth and amount < self.max_amount:
@@ -69,7 +70,7 @@ class Query():
             
             self.queue.pop(0) #Link an erster Stelle der queue wurde abgearbeitet
 
-        print("finished with K =",amount,"and D =",depth,"\n")
+        print("\nfinished with K =",amount,"and D =",depth,"\n")
 
     def draw(self,graph,form,show):
         """Methode für die darstellung des Graphen. Benutzt die Klasse Draw"""
