@@ -3,9 +3,9 @@ import argparse
 from .graphClass import Graph
 from .queryClass import Query
 from .drawClass import Draw
-# from .funcmodule import my_function
 
 def main():
+    """Cli mittels argparse"""
     parser = argparse.ArgumentParser(description="Wikigraph")
 
     parser.add_argument( #für den link
@@ -54,11 +54,10 @@ def main():
         action="store_true",
         help="draws the graph using networkx (planar_layout)"
     )
-    args = parser.parse_args()  
-    print("test",args.show)  
+    args = parser.parse_args()   
 
-    q = Query(args.link,args.k,args.d)
-    print("test")
+    q = Query(args.link,args.k,args.d) #startet auch schon direkt die Suche
+    
     if args.picture:
         q.draw(q.g,"spring",args.show)
     elif args.picturespiral:
@@ -67,7 +66,6 @@ def main():
         q.draw(q.g,"planar",args.show)
     else:
         print(q.g)
-
 
 if __name__ == '__main__':
     main()
